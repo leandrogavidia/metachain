@@ -26,6 +26,35 @@
    4. `NEXT_PUBLIC_VOTTUN_PROJECT_ID`: Your Vottun project ID for the JSON creation and token mint.
 4. `npm run dev`
 
+## Use cases
+
+### Use Case 1: Verifying the Authenticity of a Digital Artwork
+
+**Description:** A digital art collector wants to verify the authenticity of an NFT artwork they have purchased.
+
+**Flow:**
+* The collector connects their digital wallet to the MetaChain platform.
+* They enter the unique ID of the NFT they want to verify.
+* MetaChain queries its database and presents a detailed report on the artwork, including transaction history, original creator, and any modifications made.
+
+### Use Case 2: Tracking the Lifecycle of an Image in the Media
+
+**Description:** A journalist needs to track the usage of an image they have taken to ensure it is properly attributed and not used without authorization.
+
+**Flow:**
+* The journalist tokenizes the metadata of their image on MetaChain.
+* Each time the image is shared or used in another medium, a new transaction is recorded on the blockchain.
+* The journalist can consult the usage history of their image at any time, including who has used it and where.
+
+### Use Case 3: Copyright Management for Professional Photographers
+
+**Description:** A professional photographer wants to protect their copyrights and monetize their images more efficiently.
+
+**Flow:**
+* The photographer tokenizes the metadata of all their images on MetaChain.
+* When selling a usage license for an image, they generate an NFT representing that license and register it on the blockchain.
+* License buyers can verify the authenticity of the license and the usage history of the image at any time.
+
 ## Why did our team adopt the approaches we did?
 
 **We chose to develop MetaChain as a web application accessible from any internet-connected device.** This allowed us to create an intuitive and user-friendly platform without requiring any additional software installations.
