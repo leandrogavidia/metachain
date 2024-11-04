@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MetaChain
 
-## Getting Started
+**Pixel by pixel, data by data, your image is unique.**
 
-First, run the development server:
+**MetaChain is an innovative platform that leverages blockchain technology to ensure the authenticity of any digital image.** By tokenizing image metadata, we provide irrefutable proof of origin and ownership, protecting content creators, businesses, and individuals from counterfeiting and ensuring the integrity of their digital assets.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**To simplify the understanding of complex image metadata, we've integrated an AI-powered assistant.** This tool helps users easily comprehend the information stored within each image, making the verification process more accessible and efficient.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Demo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. [Demo - Video URL](https://drive.google.com/file/d/19dC1lU7JC-a9RY5__MoIwoBJP2y4At3-/view?usp=sharing)
+2. [Demo - Website URL](https://metachain-umber.vercel.app/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Localhost setup
 
-## Learn More
+### Instructions to initialize the project and test it.
 
-To learn more about Next.js, take a look at the following resources:
+**Note:** The contract only is deployed in Arbitrum One Sepolia.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. `git clone <repo-url>`
+2. `npm install`
+3. Create a `.env` file with the following variables:
+   1. `OPENAI_API_KEY`: Your Open AI API key for the assistant.
+   2. `NEXT_PUBLIC_THIRDWEB_CLIENT_ID`: Your Thirdweb client ID for the wallet connection.
+   3. `NEXT_PUBLIC_VOTTUN_API_KEY`: Your Vottun API key for the JSON creation and token mint.
+   4. `NEXT_PUBLIC_VOTTUN_PROJECT_ID`: Your Vottun project ID for the JSON creation and token mint.
+4. `npm run dev`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Why did our team adopt the approaches we did?
 
-## Deploy on Vercel
+**We chose to develop MetaChain as a web application accessible from any internet-connected device.** This allowed us to create an intuitive and user-friendly platform without requiring any additional software installations.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Why a website?** Because virtually everyone in the world has access to the internet through a device, be it a smartphone, tablet, or computer. Additionally, the ability to take photos and digitally edit images is increasingly common.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**The core of MetaChain lies in image metadata.** This unique and immutable data contains crucial information about the image, such as creation date, device used, and modifications made. By storing this metadata on a blockchain like Arbitrum One, we ensure its immutability and transparency. We selected Arbitrum One for its speed and low transaction costs, facilitating large-scale adoption of our platform.
+
+**To simplify the interaction with metadata, we've integrated a virtual assistant powered by the GPT-4-mini model.** This assistant, thanks to its natural language processing capabilities, can help users easily and quickly understand the information contained within an image's metadata.
+
+**Lastly, we utilize the Vottun platform to streamline the technical process.** Vottun allows us to effortlessly create JSON files and mint NFTs, significantly reducing the time and effort required for these tasks. Moreover, it provides an intuitive interface for monitoring and managing our NFTs.
+
+**In summary, MetaChain offers a simple and secure solution for verifying the authenticity of digital images.** By combining the power of blockchain, artificial intelligence, and an intuitive interface, we've created a platform that facilitates the protection of intellectual property and the fight against counterfeiting.
+
+## Our experience developing with Vottun APIs.
+
+**Our experience developing with Vottun's APIs has been overwhelmingly positive.** The platform's user-friendliness and extensive range of endpoints allowed us to quickly integrate the functionalities we required. Specifically, we utilized the API to create JSON files on IPFS and generate ERC-721 NFTs, and the process was quite smooth.
+
+### Benefits:
+
+- **Ease of use:** The documentation is clear and concise, and the provided examples facilitated implementation.
+ 
+- **Extensive functionality:** The API offers a wide variety of endpoints that cover most common needs in blockchain application development.
+  
+- **Scalability:** Vottun enabled us to scale our project efficiently, thanks to its capacity to handle large data volumes.
+ 
+### Challenges:
+
+- **Free plan limitations:** The 10 MB storage limit can be restrictive for larger projects. Additionally, credit consumption can be high with frequent API calls.
+  
+    ![Credits spent](credits-spent.png)
+  
+- **CORS issues:** We encountered CORS errors when attempting to use the APIs in our local and production environments, which slowed down development and impacted its quality. However, this did not prevent us from completing our project.
+
+**In summary, Vottun has provided a solid foundation for building our blockchain application.** While we encountered some limitations, overall we are very satisfied with the platform and recommend it to other developers.
+
+**In conclusion, our experience with Vottun has been positive, and we believe it is an excellent choice for developers seeking to build blockchain applications efficiently and at scale.**
+
+## Team
+
+- [Valeria Anzola](https://www.linkedin.com/in/valeria-valentina-35a352302/)
+- [Elizabeth Pacheco](https://www.linkedin.com/in/elizabeth-pacheco-19b9b1261/)
+- [Maria Lopez Paiva](https://www.linkedin.com/in/maria-lopez-paiva/)
+- [Raicelys Gómez](https://www.linkedin.com/in/gorayii/)
+- [Leandro Gavidia Santamaria](https://www.linkedin.com/in/leandrogavidia/)

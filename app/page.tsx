@@ -21,8 +21,6 @@ export default function Home() {
   const [tx, setTx] = useState("");
   const account = useActiveAccount()
 
-  console.log("account", account)
-
   const { messages, isLoading, setMessages, append } = useChat({
     api: `api/gpt-4o-mini`,
     onFinish: () => setMessages([]),
@@ -134,7 +132,7 @@ export default function Home() {
         </nav>
       </header>
       <main
-        className={`h-full w-full flex flex-col sm:flex-row items-center justify-center p-5 gap-x-10`}
+        className={`h-full w-full flex flex-col sm:flex-row items-center justify-center p-5 gap-10`}
       >
         <div className="flex flex-col gap-5 justify-center items-center w-full h-full min-w-80 max-w-80 mx-auto">
           <div className="relative">
