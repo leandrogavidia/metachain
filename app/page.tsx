@@ -9,11 +9,19 @@ import remarkGfm from "remark-gfm";
 import styles from "./markdown.module.css";
 import { randomString } from "./lib/random-string";
 import { ConnectWeb3Button } from "./connect-web3-button";
+import { useActiveAccount } from "thirdweb/react";
+import Link from "next/link";
 
 export default function Home() {
   const [metadata, setMetadata] = useState(null);
   const [currentImage, setCurrentImage] = useState("");
+  const [filename, setFilename] = useState("");
   const [responseAssistant, setResponseAssistant] = useState("");
+  const [mintLoading, setMintLoading] = useState(false);
+  const [tx, setTx] = useState("");
+  const account = useActiveAccount()
+
+  console.log("account", account)
 
   const { messages, isLoading, setMessages, append } = useChat({
     api: `api/gpt-4o-mini`,
@@ -23,10 +31,13 @@ export default function Home() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
+    setFilename(file.name);
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
         const result = e.target?.result;
+
+        console.log(result);
 
         if (result && typeof result === "string") {
           setCurrentImage(result);
@@ -43,6 +54,65 @@ export default function Home() {
         }
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handlerSubmit = async () => {
+    setMintLoading(true);
+    try {
+      const res = await fetch(
+        "https://ipfsapi-v2.vottun.tech/ipfs/v2/file/metadata",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_VOTTUN_API_KEY}`,
+            "x-application-vkn": `${process.env.NEXT_PUBLIC_VOTTUN_PROJECT_ID}`,
+          },
+          body: JSON.stringify({
+            "name": filename,
+            "image": currentImage,
+            "description": "",
+            "attributes":[],
+            "data": metadata,
+          }),
+        }
+      );
+
+      const data = await res.json();
+      const ipfsUrl = data.IpfsHash;
+      const ipfsHash = ipfsUrl.split("/").at(-1);
+
+      const mintRes = await fetch(
+        "https://api.vottun.tech/erc/v1/erc721/mint",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_VOTTUN_API_KEY}`,
+            "x-application-vkn": `${process.env.NEXT_PUBLIC_VOTTUN_PROJECT_ID}`
+          },
+          body: JSON.stringify({
+            "recipientAddress": account?.address,
+            "tokenId": Math.floor(Math.random() * 9999) + 1,
+            "ipfsUri": ipfsUrl,
+            "ipfsHash": ipfsHash,
+            "network": 421614,
+            "contractAddress": "0x8cAe2Ffe0a8b58239Cff09fd2dE258F4c17Bd3DE",
+            "gasLimit": 3000000
+        }),
+        }
+      );
+
+      const mintData = await mintRes.json();
+
+      if (mintData) {
+        setTx(mintData.txHash);
+        setMintLoading(false);
+      }
+    } catch (e) {
+      console.error("Error creating file in IPFS:", e);
+      setMintLoading(false);
     }
   };
 
@@ -98,9 +168,21 @@ export default function Home() {
             accept="image/png, image/jpeg, image/jpg"
             onChange={handleFileChange}
           />
-          <button className="bg-secondary w-full px-4 py-2 rounded-full font-semibold text-text-light">
-            Mint
+          <button
+            onClick={() => handlerSubmit()}
+            className="bg-secondary w-full px-4 py-2 rounded-full font-semibold text-text-light"
+          >
+            {
+              tx ? "Successfully minted!" : mintLoading ? "Mint in process..." : "Mint NFT"
+            }
           </button>
+          {
+            tx && (
+              <Link href={`https://sepolia.arbiscan.io/tx/${tx}`} target="_blank" className="w-full text-center text-secondary font-normal overflow-auto">
+                <p><span className="font-semibold">Transaction Hash:</span> <span>{tx}</span></p>
+              </Link>
+            )
+          }
         </div>
         <div className="flex flex-col justify-start items-start bg-zinc-900 text-text-light p-4 rounded-xl max-h-[600px] min-h-[600px] w-full min-w-[420px] max-w-[600px]">
           {metadata && (
