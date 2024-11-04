@@ -8,6 +8,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import styles from "./markdown.module.css";
 import { randomString } from "./lib/random-string";
+import { ConnectWeb3Button } from "./connect-web3-button";
 
 export default function Home() {
   const [metadata, setMetadata] = useState(null);
@@ -16,9 +17,10 @@ export default function Home() {
 
   const { messages, isLoading, setMessages, append } = useChat({
     api: `api/gpt-4o-mini`,
-    onFinish: () => setMessages([])
+    onFinish: () => setMessages([]),
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
@@ -53,9 +55,13 @@ export default function Home() {
 
   return (
     <>
-      <header className="bg-primary w-full h-12 px-4 py-2 flex items-center text-text-light font-bold text-xl">
+      <header className="bg-primary justify-between h-20 gap-x-5 w-full px-4 py-2 flex items-center text-text-light font-bold text-xl">
         <p>MetaChain</p>
-        <nav></nav>
+        <nav>
+          <div>
+            <ConnectWeb3Button />
+          </div>
+        </nav>
       </header>
       <main
         className={`h-full w-full flex flex-col sm:flex-row items-center justify-center p-5 gap-x-10`}
@@ -98,13 +104,15 @@ export default function Home() {
         </div>
         <div className="flex flex-col justify-start items-start bg-zinc-900 text-text-light p-4 rounded-xl max-h-[600px] min-h-[600px] w-full min-w-[420px] max-w-[600px]">
           {metadata && (
-            <pre className="max-h-[300px] overflow-auto w-full">{JSON.stringify(metadata, null, 2)}</pre>
+            <pre className="max-h-[300px] overflow-auto w-full">
+              {JSON.stringify(metadata, null, 2)}
+            </pre>
           )}
-          {
-            metadata ? (
-              <div className="h-0.5 my-5 bg-zinc-700 w-full"></div>
-            ) : ""
-          }
+          {metadata ? (
+            <div className="h-0.5 my-5 bg-zinc-700 w-full"></div>
+          ) : (
+            ""
+          )}
           <div>
             {isLoading ? (
               <div className="flex justify-start items-center gap-x-3">
