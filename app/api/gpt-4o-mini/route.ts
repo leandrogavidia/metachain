@@ -11,7 +11,7 @@ if (!process.env.OPENAI_API_KEY) {
 export async function POST(req: Request) {
   const { messages } = await req.json();
 
-  let systemContent = "Explain the metadata of this photo.";
+  const systemContent = "Explain the metadata of this photo.";
 
   messages.push({
     role: "system",
