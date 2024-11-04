@@ -1,0 +1,19 @@
+.markdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 20px;
+}
+
+.markdown ul, .markdown ol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 16px;
+}
+
+.markdown p {
+    display: block;
+}
